@@ -22,11 +22,11 @@ Before running the client, you'll need to configure a few environment variables.
 touch .env
 ```
 
-Next, open the .env file and update it with your Turnkey and Helius account details. You can use the .example.env provided in the repository as a template:
+Next, open the .env file and update it with your Turnkey and RPC account details. You can use the .example.env provided in the repository as a template:
 
 ```bash
-# Helius RPC endpoints
-HELIUS_DEVNET_RPC_URL=
+# RPC endpoints
+RPC_URL=
 
 # General Turnkey API keys
 TURNKEY_ORGANIZATION_ID=
@@ -37,7 +37,7 @@ TURNKEY_API_PRIVATE_KEY=
 TURNKEY_EXAMPLE_PRIVATE_KEY_ID=
 TURNKEY_EXAMPLE_PUBLIC_KEY=
 ```
-Fill in the values as per your Turnkey and Helius account details.
+Fill in the values as per your Turnkey and RPC account details.
 
 3. Running the Example via `cargo test`
 
@@ -60,9 +60,8 @@ async fn sign_and_submit_transaction() -> TurnkeyResult<()> {
 
     // Initialize Turnkey client and RPC client with environment variables
     let turnkey_client = Turnkey::new()?;
-    let helius_devnet_rpc_url =
-        env::var("HELIUS_DEVNET_RPC_URL").expect("HELIUS_DEVNET_RPC_URL not set");
-    let rpc = RpcClient::new_with_commitment(helius_devnet_rpc_url, CommitmentConfig::confirmed());
+    let rpc_url = env::var("RPC_URL").expect("RPC_URL not set");
+    let rpc = RpcClient::new_with_commitment(rpc_url, CommitmentConfig::confirmed());
 
     // Define public key and lamports for transaction
     let pubkey = Pubkey::from_str(&env::var("TURNKEY_EXAMPLE_PUBLIC_KEY").expect("Public key not set"))

@@ -15,9 +15,8 @@ async fn test_example_sign_raw_payload() -> TurnkeyResult<()> {
 
     // Initialize Turnkey client and RPC client with environment variables
     let turnkey_client = Turnkey::new()?;
-    let helius_devnet_rpc_url =
-        env::var("HELIUS_DEVNET_RPC_URL").expect("HELIUS_DEVNET_RPC_URL not set");
-    let rpc = RpcClient::new_with_commitment(helius_devnet_rpc_url, CommitmentConfig::confirmed());
+    let rpc_url = env::var("RPC_URL").expect("RPC_URL not set");
+    let rpc = RpcClient::new_with_commitment(rpc_url, CommitmentConfig::confirmed());
 
     // Define public key and lamports for transaction
     let pubkey =
